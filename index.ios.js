@@ -11,12 +11,12 @@ var Stopwatch = React.createClass({
     return <View style={styles.container}>
 
       <View style={[styles.header, this.border('yellow')]}>{/* Yellow */}
-        <View style={this.border('red')}>{/* Red */}
+        <View style={[styles.timerWrapper, this.border('red')]}>{/* Red */}
           <Text>
             00:00.00
           </Text>
         </View>
-        <View style={this.border('green')}>{/* Green */}
+        <View style={[styles.buttonWrapper, this.border('green')]}>{/* Green */}
           {this.startStopButton()}
           {this.lapButton()}
         </View>
@@ -58,6 +58,17 @@ var styles = StyleSheet.create({
   },
   footer: { // Blue area
     flex: 1
+  },
+  timerWrapper: { // Red area
+    flex: 5, // takes up 5/8ths of the available space 5+3=8
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonWrapper: { // Green area
+    flex: 3, // takes up 3/8ths of the available space
+    flexDirection: 'row', // flips the direction from the default of column to row
+    justifyContent: 'space-around',
+    alignItems: 'center'
   }
 });
 
