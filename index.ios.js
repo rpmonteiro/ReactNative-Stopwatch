@@ -11,7 +11,9 @@ var {
 var Stopwatch = React.createClass({
   getInitialState: function() {
     return {
-      timeElapsed: null
+      timeElapsed: null,
+      running: false,
+      startTime: null
     }
   },
   render: function() {
@@ -37,31 +39,54 @@ var Stopwatch = React.createClass({
 
     </View>
   },
+
   startStopButton: function() {
+    var style = this.state.running ? styles.stopButton : styles.startButton;
+
     return <TouchableHighlight
       underlayColor="gray"
       onPress={this.handleStartPress}
-      style={[styles.button, styles.startButton]}
+      style={[styles.button, style]}
     >
-      <Text>Start</Text>
+      <Text>{this.state.running ? 'Stop' : 'Start'}</Text>
     </TouchableHighlight>
   },
+
   lapButton: function() {
     return <TouchableHighlight
       style={styles.button}
+      underlayColor="lightblue"
+      onPress={this.handleLapPress}
     >
       <Text>Lap</Text>
     </TouchableHighlight>
   },
-  handleStartPress: function() {
-    var startTime = new Date();
 
-    setInterval(() => {
+  handleLapPress: function() {
+    var lap = this.state.timeElapsed;
+
+    this.setState({
+      startTime: new Date()
+    });
+  },
+
+  handleStartPress: function() {
+    if (this.state.running) {
+      clearInterval(this.interval);
+      this.setState({running: false});
+      return;
+    }
+    var startTime = new Date();
+    this.setState({startTime: new Date()})
+
+    this.interval = setInterval(() => {
       this.setState({
-        timeElapsed: new Date() - startTime
+        timeElapsed: new Date() - this.state.startTime,
+        running: true
       });
     }, 30)
   },
+
   border: function(color) {
     return {
       borderColor: color,
@@ -105,6 +130,9 @@ var styles = StyleSheet.create({
   },
   startButton: {
     borderColor: '#00CC00'
+  },
+  stopButton: {
+    borderColor: '#CC0000'
   }
 });
 
