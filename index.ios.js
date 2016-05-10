@@ -17,19 +17,19 @@ var Stopwatch = React.createClass({
   render: function() {
     return <View style={styles.container}>
 
-      <View style={[styles.header, this.border('yellow')]}>{/* Yellow */}
-        <View style={[styles.timerWrapper, this.border('red')]}>{/* Red */}
-          <Text>
+      <View style={styles.header}>{/* Yellow */}
+        <View style={styles.timerWrapper}>{/* Red */}
+          <Text style={styles.timer}>
             {formatTime(this.state.timeElapsed)}
           </Text>
         </View>
-        <View style={[styles.buttonWrapper, this.border('green')]}>{/* Green */}
+        <View style={styles.buttonWrapper}>{/* Green */}
           {this.startStopButton()}
           {this.lapButton()}
         </View>
       </View>
 
-      <View style={[styles.footer, this.border('blue')]}>{/* Blue */}
+      <View style={styles.footer}>{/* Blue */}
         <Text>
           I am a list of laps
         </Text>
@@ -41,12 +41,15 @@ var Stopwatch = React.createClass({
     return <TouchableHighlight
       underlayColor="gray"
       onPress={this.handleStartPress}
+      style={[styles.button, styles.startButton]}
     >
       <Text>Start</Text>
     </TouchableHighlight>
   },
   lapButton: function() {
-    return <TouchableHighlight>
+    return <TouchableHighlight
+      style={styles.button}
+    >
       <Text>Lap</Text>
     </TouchableHighlight>
   },
@@ -88,6 +91,20 @@ var styles = StyleSheet.create({
     flexDirection: 'row', // flips the direction from the default of column to row
     justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  timer: {
+    fontSize: 60
+  },
+  button: {
+    borderWidth: 2,
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  startButton: {
+    borderColor: '#00CC00'
   }
 });
 
