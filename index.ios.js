@@ -8,21 +8,21 @@ var {
 
 var Stopwatch = React.createClass({
   render: function() {
-    return <View>
+    return <View style={styles.container}>
 
-      <View>{/* Yellow */}
-        <View>{/* Red */}
+      <View style={[styles.header, this.border('yellow')]}>{/* Yellow */}
+        <View style={this.border('red')}>{/* Red */}
           <Text>
             00:00.00
           </Text>
-          <View>{/* Green */}
-            {this.startStopButton()}
-            {this.lapButton()}
-          </View>
+        </View>
+        <View style={this.border('green')}>{/* Green */}
+          {this.startStopButton()}
+          {this.lapButton()}
         </View>
       </View>
 
-      <View>{/* Blue */}
+      <View style={[styles.footer, this.border('blue')]}>{/* Blue */}
         <Text>
           I am a list of laps
         </Text>
@@ -39,11 +39,26 @@ var Stopwatch = React.createClass({
     return <View>
       <Text>Lap</Text>
     </View>
+  },
+  border: function(color) {
+    return {
+      borderColor: color,
+      borderWidth: 4
+    }
   }
 });
 
 var styles = StyleSheet.create({
-
+  container: {
+    flex: 1, // Fill the entire screen
+    alignItems: 'stretch' //
+  },
+  header: { // Yellow area
+    flex: 1
+  },
+  footer: { // Blue area
+    flex: 1
+  }
 });
 
 AppRegistry.registerComponent('stopwatch', () => Stopwatch);
